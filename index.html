@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nmamaste React</title>
+    <link rel="stylesheet" href="./index.css"></link>
+</head>
+<body>
+    <div id="root">
+        <h1>Hello World From HTML!</h1> 
+    </div>
+    <!-- <script>
+        // hello world from javascript
+        const heading = document.createElement("h1"); // createElement is used to create an element in HTML through JS.
+        heading.innerHTML = "Hello World from Javascript!"; //innerHTML is used to insert the value in HTML through JS.
+
+        const root = document.getElementById("root"); // this step is to capture the div element under which we want to print out Hello world.
+        root.appendChild(heading); // appendChild is used to insert a tag or element inside a parent element, here we have div with id root as a parent and h1 will be the child.
+    </script> -->
+    <!-- now lets print hello world from React, for that we need to import React through CDN.-->
+    <!--the first file here is the core React file-->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!--the second file is react library used for DOM operations-->
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!--the reason for 2 files is that react does not only work on browsers, we have react native, 3D and different types of react that is why we have 2 files. The first one is the core react file and second one is like a bridge between react core file and browser.-->
+
+    <!--now lets write hello world using react here-->
+    <!-- <script>
+        // the first thing we did when printing hello from JS is that we created an element using creatElement, here we also have something similar:
+
+        const heading = React.createElement("h1", {}, "Hello World from React!"); // the empty object will have the attributes to that tag, h1 in our case.
+
+        // now we have to create a root for React, this is where all the DOM operations will happen.
+
+        const root = ReactDOM.createRoot(document.getElementById("root")); // every rendering in react happens inside this root, which we have to create
+
+        // now in that root we have to apend heading
+
+        root.render(heading);
+
+    </script> -->
+
+    <!--shifting everything to a different file. Here the order of the tags matter, if we pull React through CDN after the source tag then the browser will throw an error saying that react is not defined-->
+    <script src="./App.js"></script>
+</body>
+</html>
