@@ -20,9 +20,9 @@
     </script> -->
     <!-- now lets print hello world from React, for that we need to import React through CDN.-->
     <!--the first file here is the core React file-->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script> -->
     <!--the second file is react library used for DOM operations-->
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script> -->
     <!--the reason for 2 files is that react does not only work on browsers, we have react native, 3D and different types of react that is why we have 2 files. The first one is the core react file and second one is like a bridge between react core file and browser.-->
 
     <!--now lets write hello world using react here-->
@@ -42,6 +42,6 @@
     </script> -->
 
     <!--shifting everything to a different file. Here the order of the tags matter, if we pull React through CDN after the source tag then the browser will throw an error saying that react is not defined-->
-    <script src="./App.js"></script>
+    <script type="module" src="./App.js"></script>
 </body>
 </html>

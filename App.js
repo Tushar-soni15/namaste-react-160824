@@ -1,7 +1,10 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+
 // the first thing we did when printing hello from JS is that we created an element using creatElement, here we also have something similar:
 
 /////////////// React.createElement("name of the tag", "{ attributes of the tag }, "what is inside the tag?") here is the syntax of react.createElement
-const heading = React.createElement("h1", {id: "heading"}, "Hello World from React!"); // the empty object will have the attributes to that tag, h1 in our case.
+const heading = React.createElement("h1", {id: "heading"}, "Hello World from React, which automatically reloads using parcel!"); // the empty object will have the attributes to that tag, h1 in our case.
 
 // here we think that the heading will give us a HTML tag, but if we console.log it:
 

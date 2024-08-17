@@ -1,0 +1,23 @@
+{
+  "name": "react-practice",
+  "version": "1.0.0",
+  "description": "react practice by namaste react course",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/Tushar-soni15/namaste-react-160824.git)"
+  },
+  "keywords": [],
+  "author": "Tushar Soni",
+  "license": "ISC",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  }
+}
