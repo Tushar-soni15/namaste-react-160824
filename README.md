@@ -17,5 +17,22 @@
 - can host in https 
 - tree shaking - remove used code for you 
 - faster because of parcel-cache folder and files 
-- diff dev and prod bundles 
+- diff dev and prod bundles
+
+// --------------------- PLANING FOOD ORDERING APP - NutriGO---------------------------------
+
+/*
+1. header component
+ - logo
+ - nav-items
+2. Body component 
+ - search 
+ - Restaurant Container
+ - Restaurant Cards
+3. Footer
+ - copyright 
+ - Links
+ - Address
+ - contact 
+*/
  
