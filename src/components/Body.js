@@ -1,12 +1,17 @@
 import RestaurantCards from "./RestaurantCards";
+import Shimmer from "./Shimmer"
 // import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 // remember we need to import the useState by name.
 
 // Unique id as key (best practice) >>>>> using index as key (which react itself do not recommend) >>>>>>> not using any key.
 
 const Body = () => {
-    //react hooks are nirmal JS utility functions
+    console.log("re-rendering while typing in the search bar"); // to test that on every action in the search bar it is rendering the whole body component.
+
+    //react hooks are normal JS utility functions
     // most common react hooks are useState() and useEffect()
     // state variable - super powerful variable - it maintain the state of the component
     // const [] = useState();
@@ -19,6 +24,11 @@ const Body = () => {
     // const arr = useState(resList);
     // const listOfRestaurants = arr[0];
     // const setListOfRestaurants = arr[1];
+
+    const [filteredRestaurants, setfilteredRestaurants] = useState([]);
+    // this is to list the filtered restaurants from the search bar. We do not want to update our main list of restaurants that is why we are creating this state variable.
+
+    const [searchText, setSearchText]= useState("")
 
     useEffect(() => {
         console.log("use Effect called");
@@ -34,13 +44,28 @@ const Body = () => {
         console.log(jsonData);
         //optional chaining
         setListOfRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants); // as soon as this gets updated the listOfRestaurants will get updated because of useState.
+        setfilteredRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     };
 
+    // this is known as conditional rendering. Rendering the component on a condition.
+    // if (listOfRestaurants.length === 0) {
+    //     return <Shimmer/>
+    // };
 
-    return (
+    //better way to write the above code is to write terninary operator instead of if else loop. Here the below code is more prefered.
+    return listOfRestaurants.length === 0? (<Shimmer/>) : (
         <div className="body">
-            {/* <div className="search">Search</div> */}
             <div className="filter">
+                <div className="search">
+                    <input type="text" className="search-text" value={searchText} onChange={(e)=>{
+                        setSearchText(e.target.value);
+                    }}/>
+                    <button onClick={()=>{
+                        console.log(searchText);
+                        const searchedRes = listOfRestaurants.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())); // this is to filter the list of restaurant to get the searched data, but this cant be updated directly because of the nature of state variable, i.e we have to pass the whole value inside the function which change this varibale.
+                        setfilteredRestaurants(searchedRes);// here instead of calling setListOfRestaurant we are calling filtered fucntion to update the filtered list variable which will be shown in the UI, but we are filtering from listOfRestaurants so that we dont fall into the bug of second time searching the list.
+                    }}>Search</button>
+                </div>
                 <button className="filter-btn" onClick={()=> {
                     // console.log("button clicked")
                     // filter logic - we will use filter fucntion here cause it the data set is an array and whenever we want some set of data from an array we use filter()
@@ -55,8 +80,8 @@ const Body = () => {
                 }}>Get top rated restaurants</button>
             </div>
             <div className="res-container">
-                {listOfRestaurants.map((restaurant) => (
-                  <RestaurantCards key={restaurant.info.id} resData={restaurant}/>
+                {filteredRestaurants.map((restaurant) => (
+                  <Link to={"/restaurant/"+ restaurant.info.id} key={restaurant.info.id}><RestaurantCards  resData={restaurant}/></Link>
                 ))}
             </div>
         </div>
