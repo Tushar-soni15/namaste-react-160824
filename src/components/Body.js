@@ -1,8 +1,9 @@
-import RestaurantCards from "./RestaurantCards";
+import RestaurantCards, {withOpenRestaurants} from "./RestaurantCards";
 import Shimmer from "./Shimmer"
 // import resList from "../utils/mockData";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 // remember we need to import the useState by name.
 
@@ -25,8 +26,13 @@ const Body = () => {
     // const listOfRestaurants = arr[0];
     // const setListOfRestaurants = arr[1];
 
+    console.log(listOfRestaurants);
+
     const [filteredRestaurants, setfilteredRestaurants] = useState([]);
     // this is to list the filtered restaurants from the search bar. We do not want to update our main list of restaurants that is why we are creating this state variable.
+
+    // here we have to create a restaurant card component which have open tag in it:
+    const RestaurantCardsOpen = withOpenRestaurants(RestaurantCards); // this RestaurantCardsOpen is the new component which withOpenRestaurants has returned to us and it will have the resturant cards with isOpen true to them which logic we will write later in the code.
 
     const [searchText, setSearchText]= useState("")
 
@@ -47,26 +53,33 @@ const Body = () => {
         setfilteredRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
     };
 
+    const onlineStatus = useOnlineStatus();
+
+    if(onlineStatus === false) return (<h1>Looks like your internet connection is not working.</h1>)
+
+    if (listOfRestaurants.length === 0) return <Shimmer/>; 
+
     // this is known as conditional rendering. Rendering the component on a condition.
     // if (listOfRestaurants.length === 0) {
     //     return <Shimmer/>
     // };
 
     //better way to write the above code is to write terninary operator instead of if else loop. Here the below code is more prefered.
-    return listOfRestaurants.length === 0? (<Shimmer/>) : (
+    return (
         <div className="body">
-            <div className="filter">
-                <div className="search">
-                    <input type="text" className="search-text" value={searchText} onChange={(e)=>{
+            <div className="filter flex items-center">
+                <div className="p-4 m-4">
+                    <input type="text" className="border border-solid border-black" value={searchText} onChange={(e)=>{
                         setSearchText(e.target.value);
                     }}/>
-                    <button onClick={()=>{
+                    <button className="px-4 py-1 m-4 bg-green-200 rounded-lg" onClick={()=>{
                         console.log(searchText);
                         const searchedRes = listOfRestaurants.filter((res) => res.info.name.toLowerCase().includes(searchText.toLowerCase())); // this is to filter the list of restaurant to get the searched data, but this cant be updated directly because of the nature of state variable, i.e we have to pass the whole value inside the function which change this varibale.
                         setfilteredRestaurants(searchedRes);// here instead of calling setListOfRestaurant we are calling filtered fucntion to update the filtered list variable which will be shown in the UI, but we are filtering from listOfRestaurants so that we dont fall into the bug of second time searching the list.
                     }}>Search</button>
                 </div>
-                <button className="filter-btn" onClick={()=> {
+                <div>
+                <button className="px-4 py-2 bg-gray-100 rounded-lg" onClick={()=> {
                     // console.log("button clicked")
                     // filter logic - we will use filter fucntion here cause it the data set is an array and whenever we want some set of data from an array we use filter()
                     // listOfRestaurants = listOfRestaurants.filter(
@@ -78,10 +91,16 @@ const Body = () => {
                         );
                     setListOfRestaurants(filteredList);
                 }}>Get top rated restaurants</button>
+                </div>
             </div>
-            <div className="res-container">
+            <div className="flex flex-wrap">
                 {filteredRestaurants.map((restaurant) => (
-                  <Link to={"/restaurant/"+ restaurant.info.id} key={restaurant.info.id}><RestaurantCards  resData={restaurant}/></Link>
+                  <Link 
+                  to={"/restaurant/"+ restaurant.info.id} 
+                  key={restaurant.info.id}>
+                    {/* if the restaurant is open then show a label here */}
+                    {restaurant.info.isOpen ? <RestaurantCardsOpen resData={restaurant}/> : <RestaurantCards  resData={restaurant}/>}
+                  </Link>
                 ))}
             </div>
         </div>
