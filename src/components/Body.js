@@ -1,16 +1,17 @@
 import RestaurantCards, {withOpenRestaurants} from "./RestaurantCards";
 import Shimmer from "./Shimmer"
 // import resList from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/userContext";
 
 // remember we need to import the useState by name.
 
 // Unique id as key (best practice) >>>>> using index as key (which react itself do not recommend) >>>>>>> not using any key.
 
 const Body = () => {
-    console.log("re-rendering while typing in the search bar"); // to test that on every action in the search bar it is rendering the whole body component.
+    // console.log("re-rendering while typing in the search bar"); // to test that on every action in the search bar it is rendering the whole body component.
 
     //react hooks are normal JS utility functions
     // most common react hooks are useState() and useEffect()
@@ -65,6 +66,8 @@ const Body = () => {
     // };
 
     //better way to write the above code is to write terninary operator instead of if else loop. Here the below code is more prefered.
+
+    const {loggedInUser, setUserName} = useContext(UserContext);
     return (
         <div className="body">
             <div className="filter flex items-center">
@@ -79,18 +82,27 @@ const Body = () => {
                     }}>Search</button>
                 </div>
                 <div>
-                <button className="px-4 py-2 bg-gray-100 rounded-lg" onClick={()=> {
-                    // console.log("button clicked")
-                    // filter logic - we will use filter fucntion here cause it the data set is an array and whenever we want some set of data from an array we use filter()
-                    // listOfRestaurants = listOfRestaurants.filter(
-                    //     (res) => res.info.avgRating > 4.0
-                    // );
-                    // console.log(listOfRestaurants);
-                    const filteredList = listOfRestaurants.filter(
-                            (res) => res.info.avgRating > 4.0
-                        );
-                    setListOfRestaurants(filteredList);
-                }}>Get top rated restaurants</button>
+                    <button className="px-4 py-2 bg-gray-100 rounded-lg" onClick={()=> {
+                        // console.log("button clicked")
+                        // filter logic - we will use filter fucntion here cause it the data set is an array and whenever we want some set of data from an array we use filter()
+                        // listOfRestaurants = listOfRestaurants.filter(
+                        //     (res) => res.info.avgRating > 4.0
+                        // );
+                        // console.log(listOfRestaurants);
+                        const filteredList = listOfRestaurants.filter(
+                                (res) => res.info.avgRating > 4.0
+                            );
+                        setListOfRestaurants(filteredList);
+                    }}>Get top rated restaurants</button>
+                </div>
+                <div className="m-4 p-2">
+                    <label>Set the User Name in real time:</label>
+                    <input 
+                    className="m-2 p-2 border border-black" 
+                    value={loggedInUser} 
+                    onChange={
+                        (e) => setUserName(e.target.value)
+                    }/>
                 </div>
             </div>
             <div className="flex flex-wrap">

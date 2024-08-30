@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { Header } from "./components/Header";
 import Body from "./components/Body";
@@ -7,6 +7,8 @@ import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Contact from "./components/Contact";
 import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
+import UserContext from "./utils/userContext";
+import { useState, useContext } from "react";
 
 // // the first thing we did when printing hello from JS is that we created an element using creatElement, here we also have something similar:
 
@@ -99,14 +101,29 @@ import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 
 // creating the base/root component (ReactElement) of the app first
 
+
 const AppLayout = () => {
+    const {loggedInUser} = useContext(UserContext);
+
+    const [userName, setUserName] = useState();
+
+    useEffect(()=>{
+        // let say this made an API call and given back some user data
+        const data = {
+            name: "Tushar Soni"
+        };
+        setUserName(data.name);
+    }, [])
     return (
-        <div className="app">
-            <Header/>
-            {/* <Body/> */}
-            {/* if the path is '/' we want to show /body with the header, if the path is /about we want to show /about with it and same goes for the contact page. This is where outlet comes into the picture. Outlet basically replace itself according to the condition.  */}
-            <Outlet />
-        </div>
+        <UserContext.Provider value={{ loggedInUser: userName, setUserName}}>
+            {/* Tushar Soni */}
+            <div className="app">
+                <Header/>   
+                {/* <Body/> */}
+                {/* if the path is '/' we want to show /body with the header, if the path is /about we want to show /about with it and same goes for the contact page. This is where outlet comes into the picture. Outlet basically replace itself according to the condition.  */}
+                <Outlet />
+            </div>
+        </UserContext.Provider> // wrapping the app inside the usercontext.Provider we will be passing the updated context object or overwritting the default value of context object. 
     )
 };
 

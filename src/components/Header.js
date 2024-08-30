@@ -1,17 +1,20 @@
 import { LOGO_URL } from "../utils/constants.js";
 // this import is a named import that is why we have to name the vairable inside curly braces
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom"; // Link is just as anchor tag but it does not reloads the whole page instead it only routes it way to the destination. It is IMPORTANT TO NOTE THAT IN REACT WE WILL NEVER USE ANCHOR TAG.
 import useOnlineStatus from "../utils/useOnlineStatus.js";
+import UserContext from "../utils/userContext.js";
 
 
 // can remove this export.
 export const Header = () => {
-    console.log(useState()); // this will give me an array which will have a variable whose value will be undefined, and a empty function.
+    // console.log(useState()); // this will give me an array which will have a variable whose value will be undefined, and a empty function.
     let btnName = "Login" // the login behind creating this variable is that we want a button named lagin which on getting clicked gets vhanges to Logout, and visa versa. But doing this through JS here is not working. The problem here is that we are changing the variable name on click if the button which is working perfectly fine in the backend, the cosole is showing the desired results, but the UI is not updating, not rendering the result as expected, this is where react state variables come in the picture.  
     const [btnNameReact, setBtnNameReact] = useState("Login");
 
     const onlineStatus = useOnlineStatus();
+
+    const {loggedInUser} = useContext(UserContext);
 
     return (
         <div className="flex justify-between shadow-sm bg-purple-50">
@@ -36,6 +39,7 @@ export const Header = () => {
                         console.log(btnNameReact);
                     }}>{btnNameReact}
                      </button> 
+                     <li className="px-4 font-bold">{loggedInUser}</li>
                 </ul>
             </div>
         </div>  
