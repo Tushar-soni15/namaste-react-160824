@@ -6,9 +6,12 @@ import About from "./components/About";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Contact from "./components/Contact";
+import Cart from "./components/Cart";
 import { createBrowserRouter, RouterProvider, Outlet} from "react-router-dom";
 import UserContext from "./utils/userContext";
 import { useState, useContext } from "react";
+import appStore from "./utils/appStore";
+import { Provider } from "react-redux";
 
 // // the first thing we did when printing hello from JS is that we created an element using creatElement, here we also have something similar:
 
@@ -115,7 +118,8 @@ const AppLayout = () => {
         setUserName(data.name);
     }, [])
     return (
-        <UserContext.Provider value={{ loggedInUser: userName, setUserName}}>
+        <Provider store={appStore}>
+            <UserContext.Provider value={{ loggedInUser: userName, setUserName}}>
             {/* Tushar Soni */}
             <div className="app">
                 <Header/>   
@@ -123,7 +127,9 @@ const AppLayout = () => {
                 {/* if the path is '/' we want to show /body with the header, if the path is /about we want to show /about with it and same goes for the contact page. This is where outlet comes into the picture. Outlet basically replace itself according to the condition.  */}
                 <Outlet />
             </div>
-        </UserContext.Provider> // wrapping the app inside the usercontext.Provider we will be passing the updated context object or overwritting the default value of context object. 
+        </UserContext.Provider> 
+        </Provider>
+        // wrapping the app inside the usercontext.Provider we will be passing the updated context object or overwritting the default value of context object. 
     )
 };
 
@@ -150,6 +156,10 @@ const appRouter = createBrowserRouter([
             {
                 path: "/restaurant/:resId",
                 element: <RestaurantMenu/>
+            },
+            {
+                path: "/cart",
+                element: <Cart/>
             }
         ]
     }
