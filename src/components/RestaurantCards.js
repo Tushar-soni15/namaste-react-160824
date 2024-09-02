@@ -5,6 +5,7 @@ import { CDN_URL } from "../utils/constants.js";
 // const RestaurantCards = (props) => {}
     const RestaurantCards = (props) => {
         const {resData} = props;
+        console.log(resData);
         const {name, avgRating, costForTwo, cloudinaryImageId} = resData?.info 
         // this is optional chaining, used to make the cosmetic changes and better readability
         return (

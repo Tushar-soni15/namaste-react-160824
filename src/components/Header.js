@@ -43,7 +43,7 @@ export const Header = () => {
                         // btnName = "logout"; this is not useful to gets updated to the UI layer and render the component.
                         console.log(btnName);
 
-                        setBtnNameReact(btnNameReact=== "login"? "Logout": "login");
+                        setBtnNameReact(btnNameReact=== "Login"? "Logout": "Login");
                         console.log(btnNameReact);
                     }}>{btnNameReact}
                      </button> 
