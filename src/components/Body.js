@@ -48,7 +48,7 @@ const Body = () => {
 
         const jsonData = await data.json();
 
-        console.log(jsonData);
+        // console.log(jsonData);
         //optional chaining
         setListOfRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants); // as soon as this gets updated the listOfRestaurants will get updated because of useState.
         setfilteredRestaurants(jsonData?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
@@ -72,7 +72,7 @@ const Body = () => {
         <div className="body">
             <div className="filter flex items-center">
                 <div className="p-4 m-4">
-                    <input type="text" className="border border-solid border-black" value={searchText} onChange={(e)=>{
+                    <input data-testid="searchInput" type="text" className="border border-solid border-black" value={searchText} onChange={(e)=>{
                         setSearchText(e.target.value);
                     }}/>
                     <button className="px-4 py-1 m-4 bg-green-200 rounded-lg" onClick={()=>{
@@ -90,9 +90,9 @@ const Body = () => {
                         // );
                         // console.log(listOfRestaurants);
                         const filteredList = listOfRestaurants.filter(
-                                (res) => res.info.avgRating > 4.0
+                                (res) => res.info.avgRatingString > 4.0
                             );
-                        setListOfRestaurants(filteredList);
+                            setfilteredRestaurants(filteredList);
                     }}>Get top rated restaurants</button>
                 </div>
                 <div className="m-4 p-2">
