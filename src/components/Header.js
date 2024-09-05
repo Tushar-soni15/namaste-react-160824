@@ -21,24 +21,22 @@ export const Header = () => {
     const {loggedInUser} = useContext(UserContext);
 
     return (
-        <div className="flex justify-between shadow-sm bg-purple-50">
+        <div className="flex justify-between shadow-md">
             <div className="logo-container">
-                <img className="w-36" src={LOGO_URL}></img>
+            <Link to="/"><img className="w-36 cursor-pointer" src={LOGO_URL}></img></Link>
             </div>
             <div className="flex items-center">
                 <ul className="flex p-4 m-4">
-                    <li className="px-4">
+                    {/* <li className="px-4">
                         online status: {onlineStatus ? "✅" : "❌"}
-                    </li>
+                    </li> */}
                     <li className="px-4">
                         <Link to="/">Home</Link></li>
                     <li className="px-4">
-                        <Link to="/about">About US</Link></li>
+                        <Link to="/about">NutriGO Corporate</Link></li>
                     <li className="px-4">
-                        <Link to="/contact">Contact Us</Link></li>
-                    <li className="px-4 font-bold">
-                        <Link to="/cart">Cart ({cartItems.length} items)</Link></li>
-                    <button className="login-btn" 
+                        <Link to="/contact">Contact</Link></li>
+                    <button className="px-4" 
                     onClick={() => {
                         // btnName = "logout"; this is not useful to gets updated to the UI layer and render the component.
                         console.log(btnName);
@@ -48,6 +46,9 @@ export const Header = () => {
                     }}>{btnNameReact}
                      </button> 
                      <li className="px-4 font-bold">{loggedInUser}</li>
+                     <li className="px-4 font-bold">
+                        <Link to="/cart">Cart ({cartItems.length} items)</Link>
+                    </li>
                 </ul>
             </div>
         </div>  

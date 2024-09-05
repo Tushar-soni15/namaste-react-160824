@@ -9,7 +9,7 @@ import { CDN_URL } from "../utils/constants.js";
         const {name, avgRating, costForTwo, cloudinaryImageId} = resData?.info 
         // this is optional chaining, used to make the cosmetic changes and better readability
         return (
-            <div data-testid="resCards" className="m-4 p-4 w-[250] bg-gray-100 hover:bg-gray-200 rounded-lg">
+            <div data-testid="resCards" className="m-5 p-4 w-[250] hover:bg-gray-200 rounded-lg">
                 <img alt="res-logo" className="rounded-lg" src={CDN_URL+ cloudinaryImageId}></img>
                 {/* <h3>McDonalds</h3>  */}
                 {/* <h3>props.resName</h3> this is how we can use the props. */}

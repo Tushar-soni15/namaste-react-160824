@@ -12,6 +12,7 @@ import UserContext from "./utils/userContext";
 import { useState, useContext } from "react";
 import appStore from "./utils/appStore";
 import { Provider } from "react-redux";
+import FormIkSignUp from "./components/FormIkSignUp"
 
 // // the first thing we did when printing hello from JS is that we created an element using creatElement, here we also have something similar:
 
@@ -121,8 +122,8 @@ const AppLayout = () => {
         <Provider store={appStore}>
             <UserContext.Provider value={{ loggedInUser: userName, setUserName}}>
             {/* Tushar Soni */}
-            <div className="app">
                 <Header/>   
+            <div className="w-10/12 m-auto">
                 {/* <Body/> */}
                 {/* if the path is '/' we want to show /body with the header, if the path is /about we want to show /about with it and same goes for the contact page. This is where outlet comes into the picture. Outlet basically replace itself according to the condition.  */}
                 <Outlet />
@@ -162,6 +163,10 @@ const appRouter = createBrowserRouter([
                 element: <Cart/>
             }
         ]
+    },
+    {
+        path: "/sign-up",
+        element: <FormIkSignUp/>
     }
 ])
 

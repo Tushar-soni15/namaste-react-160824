@@ -20,7 +20,8 @@ const Cart = () => {
                 <button 
                 className="text-white bg-red-600 rounded-lg m-2 p-2"
                 onClick={clearCart}>Clear Cart</button>
-                {cartItems.length === 0 && <h1 className="font-bold m-6 p-6 text-gray-400">Uhh ohh !! The cart is empty, please add items to the cart.</h1>}
+                {cartItems.length === 0 && <h1 className="font-bold m-6 p-6 text-gray-400">Your cart is empty
+                    You can go to home page to view more restaurants</h1>}
                <MenuItemList items={cartItems}/> 
             </div>
         </div>

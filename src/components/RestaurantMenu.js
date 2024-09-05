@@ -51,8 +51,9 @@ const RestaurantMenu = () => {
     return (
         <div className="text-center">
             <h1 className="font-bold m-4 p-4 text-3xl">{name}</h1>
-            <p className="font-bold">{city} - {avgRating} starts</p>
-            <h3 className="font-bold">{cuisines.join(", ")}</h3>
+            <p className="font-bold">📍{city} - {avgRating} stars ⭐</p>
+            <h3 className="font-bold">🍽️{cuisines.join(", ")}</h3>
+            <h3 className="font-light p-4 m-4">--Menu--</h3>
             {/* <ul>
                 {itemCards.map((item) =>(
                     <li key={item.card.info.id}>
